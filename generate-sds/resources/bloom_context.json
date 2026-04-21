@@ -1,0 +1,47 @@
+{
+  "repos": {
+    "WhoopInc/data-sci-reproductive-health-service": {
+      "status": "fetched",
+      "endpoints": [
+        "POST /v1/menstrual/stats",
+        "POST /v1/menstrual/trend",
+        "POST /v1/pregnancy/trend"
+      ],
+      "algo_versions": {
+        "menstrual_trend": "1.2.2",
+        "pregnancy_trend": "1.0.0"
+      }
+    },
+    "WhoopInc/samd-sleeps-service": {
+      "status": "404_not_found"
+    }
+  },
+  "confluence": {
+    "5841223724": "fetched - WIP Bloom Proposed API Contract (Rollups API, Nightly Aggregates API, Menstrual Trend v2 contract, Cycle Edit Handling state machine)",
+    "6317670414": "fetched - Bloom x MCI Integration Option 2 (OvulationStatus, CycleOvulationSource, CycleOvulation, CycleOvulations data models, pipeline steps 1-3.8, state machine, scoping tickets)"
+  },
+  "srs": {
+    "FRT1-017": {
+      "status": "extracted_tables_empty",
+      "module_names": {
+        "MOBILE": "Onboarding/Notification",
+        "CLOUD": "Bloom Cloud",
+        "SECURE": "Security"
+      },
+      "references": [
+        "FRT1-001",
+        "FRT1-002",
+        "IEC 62304:2015",
+        "SOP-027",
+        "FRT1-014",
+        "FRT1-024"
+      ]
+    }
+  },
+  "fetched_at": "2026-04-21T16:27:27.692998+00:00",
+  "images": {
+    "MCI_Bloom_architecture.drawio.png": "att6082002976 - MCI architecture with SaMD boundary, pipeline inputs/outputs",
+    "image-20260324-202740.png": "att6081085469 - SaMD boundary diagram (MCI \u2192 Bloom \u2192 Ovulations/Fertile Window)",
+    "bloom-diagram.drawio.png": "att6314918038 - Bloom system context diagram"
+  }
+}

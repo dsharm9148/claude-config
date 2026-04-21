@@ -1,0 +1,12 @@
+{
+  "repos": {
+    "WhoopInc/data-sci-anf-service": {
+      "readme": "ANF service for atrial fibrillation detection using WHOOP strap data",
+      "algo_version": "0.0.1",
+      "api_endpoint": "POST /v2/anf/classification",
+      "pipeline": "epoch_classification_pipeline -> window_classification_pipeline"
+    }
+  },
+  "confluence": {},
+  "fetched_at": "2026-04-17T19:40:59.282164"
+}

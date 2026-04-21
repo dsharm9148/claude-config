@@ -1,0 +1,495 @@
+<!doctype html>
+<html>
+<!-- WHOOP Presentation Template — dark/action theme.
+     Copy to slides-vN.html, update DECK CONFIG, replace <!-- SLIDE --> blocks.
+     Light theme: uncomment LIGHT THEME block in DECK CONFIG. -->
+<head>
+  <meta charset="utf-8">
+  <title><!-- DECK_TITLE --></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DECK CONFIG — change these values for each deck
+       ═══════════════════════════════════════════════════════════════ */
+
+    :root {
+      /* Brand palette — DO NOT change */
+      --blue:    #0093E7;
+      --teal:    #00F19F;
+      --green:   #00F19F;
+      --rec-blue:#87AEE6;
+      --sleep:   #78A1B8;
+      --pink:    #E879A0;
+      --purple:  #9B6DFF;
+
+      /* Theme tokens — override below for light theme */
+      --text:    #ffffff;
+      --muted:   #aaaaaa;
+      --label:   #555555;
+      --divider: rgba(255,255,255,0.07);
+      --slide-bg: linear-gradient(135deg,#283339 0%,#101518 100%);
+
+      /* Per-deck accent: swap to --blue for a blue-forward deck */
+      --accent: var(--teal);
+
+      /* Logo files (copy correct variant to working dir) */
+      --logo:       url('whoop_logo_white.png');  /* dark bg */
+      /* For light theme use: url('whoop_logo_black.png') */
+
+      /* Cover + divider images — pick from active_*, casual_*, band_* */
+      /* active_NN.jpg  → action/athlete shots  (dark theme)  */
+      /* casual_NN.jpg  → lifestyle/docu shots  (light theme) */
+      /* band_NN.jpg    → device/product shots  (product decks) */
+    }
+
+    /* ── LIGHT THEME OVERRIDE (uncomment to activate) ──────────────
+    :root {
+      --text:    #1a1a1a;
+      --muted:   #888888;
+      --label:   #bbbbbb;
+      --divider: rgba(0,0,0,0.08);
+      --slide-bg: linear-gradient(135deg,#f8f9fb 0%,#eef0f4 100%);
+    }
+    .slide-header img { filter: none !important; }
+    .slide { background: var(--slide-bg) !important; color: var(--text) !important; }
+    h2.content-title { color: #111 !important; }
+    ul.b li { color: #2a2a2a !important; }
+    table.t td { color: #333 !important; }
+    .code-block { background:#f2f3f6!important; border-color:rgba(0,0,0,0.09)!important; color:#555!important; }
+    code { background:#eff0f3!important; border-color:rgba(0,0,0,0.09)!important; color:#008855!important; }
+    ── END LIGHT THEME ────────────────────────────────────────────── */
+
+    /* ═══════════════════════════════════════════════════════════════
+       CORE STYLES — do not edit (edit DECK CONFIG above instead)
+       ═══════════════════════════════════════════════════════════════ */
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body,.reveal{font-family:'Proxima Nova','Helvetica Neue',Helvetica,Arial,sans-serif;}
+    .reveal .slides section{padding:0;}
+
+    /* Content slides */
+    .slide{display:flex;flex-direction:column;width:1280px;height:720px;
+           background:var(--slide-bg);padding:32px 48px 36px;color:var(--text);
+           overflow:hidden;position:relative;}
+    .slide-header{display:flex;justify-content:space-between;align-items:center;
+                  padding-bottom:20px;border-bottom:1px solid var(--divider);margin-bottom:28px;
+                  font-size:11px;font-weight:600;text-transform:uppercase;
+                  letter-spacing:0.12em;color:var(--label);}
+    .slide-header img{height:14px;}
+    .slide-body{display:flex;flex-direction:column;flex:1;min-height:0;}
+
+    /* Cover slide */
+    .slide-title{background:#000;padding:0;position:relative;display:flex;align-items:stretch;}
+    .cover-bg{position:absolute;inset:0;z-index:0;}
+    .cover-bg img{width:100%;height:100%;object-fit:cover;display:block;opacity:0.55;}
+    .cover-scrim{position:absolute;inset:0;
+                 background:linear-gradient(135deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.45) 100%);z-index:1;}
+    .cover-content{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;
+                   justify-content:center;align-items:center;text-align:center;padding:56px 100px;}
+    .logo-large{height:28px;margin-bottom:36px;}
+    .cover-teal-line{width:48px;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 28px;}
+    .slide-title h1{font-size:52px;font-weight:700;letter-spacing:0.04em;color:#fff;
+                    line-height:1.1;margin-bottom:16px;text-transform:uppercase;}
+    .slide-title .subtitle{font-size:20px;font-weight:400;color:rgba(255,255,255,0.6);
+                           line-height:1.4;margin-bottom:32px;}
+    .slide-title .meta-row{display:flex;align-items:center;justify-content:center;gap:14px;}
+    .meta-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--accent);}
+    .meta-divider{width:1px;height:12px;background:rgba(255,255,255,0.2);}
+    .meta-date{font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.08em;}
+
+    /* Divider slides */
+    .slide-divider{padding:0;position:relative;display:flex;align-items:stretch;}
+    .slide-divider .div-bg{position:absolute;inset:0;z-index:0;}
+    .slide-divider .div-bg img{width:100%;height:100%;object-fit:cover;display:block;opacity:0.4;}
+    .slide-divider .div-scrim{position:absolute;inset:0;
+                              background:linear-gradient(90deg,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.5) 60%,rgba(0,0,0,0.2) 100%);z-index:1;}
+    .slide-divider .div-content{position:relative;z-index:2;width:100%;padding:32px 48px 36px;display:flex;flex-direction:column;}
+    .slide-divider .div-header{display:flex;justify-content:space-between;align-items:center;
+                               padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);
+                               font-size:11px;font-weight:600;text-transform:uppercase;
+                               letter-spacing:0.12em;color:rgba(255,255,255,0.3);}
+    .slide-divider .div-header img{height:14px;}
+    .slide-divider .div-body{flex:1;display:flex;flex-direction:column;justify-content:center;}
+    .slide-divider .section-label{font-size:11px;font-weight:700;text-transform:uppercase;
+                                   letter-spacing:0.22em;color:var(--accent);margin-bottom:12px;}
+    .slide-divider h2{font-size:60px;font-weight:700;text-transform:uppercase;
+                      letter-spacing:0.06em;color:#fff;line-height:1.05;}
+    .div-num{position:absolute;right:48px;bottom:24px;font-size:160px;font-weight:700;
+             color:rgba(255,255,255,0.06);font-family:'DINPro','Helvetica Neue',sans-serif;
+             line-height:1;pointer-events:none;z-index:2;}
+
+    /* Labels & headings */
+    .section-label{font-size:11px;font-weight:700;text-transform:uppercase;
+                   letter-spacing:0.18em;color:var(--accent);margin-bottom:6px;}
+    h2.content-title{font-size:26px;font-weight:700;text-transform:uppercase;
+                     letter-spacing:0.08em;line-height:1.15;margin-bottom:6px;color:#fff;}
+    .content-subtitle{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:18px;}
+    .col-head{font-size:10px;font-weight:700;text-transform:uppercase;
+              letter-spacing:0.14em;color:var(--label);margin-bottom:12px;}
+
+    /* Bullets */
+    ul.b{list-style:none;display:flex;flex-direction:column;gap:9px;}
+    ul.b li{font-size:14px;font-weight:600;padding-left:18px;position:relative;line-height:1.5;color:var(--text);}
+    ul.b li::before{content:'—';position:absolute;left:0;color:var(--accent);font-weight:700;}
+    ul.b li.sub{font-size:13px;color:var(--muted);padding-left:32px;margin-top:-3px;}
+    ul.b li.sub::before{content:'·';left:18px;color:var(--label);}
+
+    /* Grids */
+    .two-col  {display:grid;grid-template-columns:1fr 1fr;gap:40px;flex:1;min-height:0;}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;flex:1;min-height:0;}
+
+    /* Agenda cards */
+    .agenda-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;flex:1;}
+    .agenda-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+                 border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:7px;}
+    .agenda-num{font-size:26px;font-weight:700;color:rgba(0,241,159,0.35);
+                font-family:'DINPro','Helvetica Neue',sans-serif;line-height:1;}
+    .agenda-title{font-size:12px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.07em;}
+    .agenda-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+
+    /* Boxes */
+    .box-blue{background:rgba(0,147,231,0.12);border:1px solid rgba(0,147,231,0.35);border-radius:6px;padding:14px 18px;}
+    .box-teal{background:rgba(0,241,159,0.10);border:1px solid rgba(0,241,159,0.3); border-radius:6px;padding:14px 18px;}
+    .box-gray{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:14px 18px;}
+
+    /* Callouts */
+    .callout     {background:rgba(0,147,231,0.07);border-left:3px solid var(--blue);border-radius:0 4px 4px 0;padding:12px 16px;}
+    .callout-teal{background:rgba(0,241,159,0.07);border-left:3px solid var(--teal);border-radius:0 4px 4px 0;padding:12px 16px;}
+    .callout p,.callout-teal p{font-size:13px;font-weight:600;color:var(--muted);line-height:1.5;}
+    .callout-title{font-size:10px;font-weight:700;text-transform:uppercase;
+                   letter-spacing:0.14em;color:var(--blue);margin-bottom:5px;}
+    .callout-teal .callout-title{color:var(--teal);}
+
+    /* Flow diagram */
+    .flow{display:flex;flex-direction:column;gap:14px;}
+    .flow-step{display:flex;align-items:flex-start;gap:14px;}
+    .flow-num{width:28px;height:28px;background:var(--blue);border-radius:50%;
+              display:flex;align-items:center;justify-content:center;
+              font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+    .flow-text{font-size:13px;font-weight:600;line-height:1.5;padding-top:4px;color:var(--muted);}
+    .flow-text strong{color:#fff;}
+
+    /* Stats */
+    .stat-num  {font-family:'DINPro','Helvetica Neue',sans-serif;font-weight:700;font-size:56px;line-height:1;color:var(--accent);}
+    .stat-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-top:6px;}
+
+    /* Table */
+    table.t{width:100%;border-collapse:collapse;font-size:13px;}
+    table.t th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;
+               color:var(--label);padding:8px 12px;border-bottom:1px solid var(--divider);text-align:left;}
+    table.t td{padding:9px 12px;border-bottom:1px solid var(--divider);font-weight:600;color:var(--text);}
+    table.t tr:last-child td{border-bottom:none;}
+
+    /* Tags */
+    .tag-on    {font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;
+                padding:2px 7px;border-radius:3px;background:rgba(0,241,159,0.15);
+                color:var(--teal);border:1px solid rgba(0,241,159,0.3);}
+    .tag-off   {font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;
+                padding:2px 7px;border-radius:3px;background:rgba(255,255,255,0.06);
+                color:var(--muted);border:1px solid rgba(255,255,255,0.1);}
+
+    /* Code */
+    .code-block{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);
+                border-radius:5px;padding:14px 18px;
+                font-family:'SF Mono','Fira Code',monospace;font-size:12px;
+                color:var(--muted);line-height:1.7;}
+    code{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);
+         border-radius:3px;padding:1px 6px;font-size:0.9em;
+         color:var(--teal);font-family:'SF Mono','Fira Code',monospace;}
+    .kw{color:var(--purple);font-weight:600;} .str{color:var(--teal);} .cm{color:#444;}
+
+    /* Links */
+    a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(0,147,231,0.3);padding-bottom:1px;}
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SLIDE: TITLE (cover)
+     ▸ COVER_IMAGE  — action photo (active_NN.jpg) or lifestyle (casual_NN.jpg)
+     ▸ LOGO_FILE    — whoop_logo_white.png (dark) | whoop_logo_black.png (light)
+     ▸ DECK_TEAM    — e.g. "Data Science & Research"
+     ▸ DECK_TITLE   — main title, max ~6 words
+     ▸ DECK_SUBTITLE — one-line descriptor
+     ▸ DECK_TAG     — e.g. "WHOOP Internal" or team name
+     ▸ DECK_DATE    — e.g. "March 2026"
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide slide-title">
+  <div class="cover-bg"><img src="active_08.jpg" alt=""></div><!-- COVER_IMAGE -->
+  <div class="cover-scrim"></div>
+  <div class="cover-content">
+    <img class="logo-large" src="whoop_logo_white.png" alt="WHOOP"><!-- LOGO_FILE -->
+    <div class="cover-teal-line"></div>
+    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:16px;">DECK_TEAM</p>
+    <h1>DECK_TITLE</h1>
+    <p class="subtitle">DECK_SUBTITLE</p>
+    <div class="meta-row">
+      <span class="meta-tag">DECK_TAG</span>
+      <div class="meta-divider"></div>
+      <span class="meta-date">DECK_DATE</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SLIDE: AGENDA (use when 4+ sections)
+     ▸ Up to 6 agenda-card blocks; remove unused ones
+     ▸ agenda-num: 01–06; agenda-title: section name; agenda-desc: one line
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header">
+    <img src="whoop_logo_white.png" alt="WHOOP"><!-- LOGO_FILE -->
+    <span>DECK_TITLE</span>
+  </div>
+  <div class="slide-body">
+    <p class="section-label">Agenda</p>
+    <h2 class="content-title" style="margin-bottom:16px;">What We'll Cover</h2>
+    <div class="agenda-grid">
+      <div class="agenda-card"><div class="agenda-num">01</div><div class="agenda-title">SECTION_NAME</div><div class="agenda-desc">One-line description</div></div>
+      <div class="agenda-card"><div class="agenda-num">02</div><div class="agenda-title">SECTION_NAME</div><div class="agenda-desc">One-line description</div></div>
+      <div class="agenda-card"><div class="agenda-num">03</div><div class="agenda-title">SECTION_NAME</div><div class="agenda-desc">One-line description</div></div>
+      <div class="agenda-card"><div class="agenda-num">04</div><div class="agenda-title">SECTION_NAME</div><div class="agenda-desc">One-line description</div></div>
+      <div class="agenda-card"><div class="agenda-num">05</div><div class="agenda-title">SECTION_NAME</div><div class="agenda-desc">One-line description</div></div>
+      <div class="agenda-card"><div class="agenda-num">06</div><div class="agenda-title">SECTION_NAME</div><div class="agenda-desc">One-line description</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SLIDE: SECTION DIVIDER
+     ▸ DIV_IMAGE   — varies per section; pick a different active_/casual_ per divider
+     ▸ DIV_NUM     — e.g. 01 | 02 | 03
+     ▸ DIV_LABEL   — section number label shown above the big title
+     ▸ DIV_TITLE   — big section title (can be 2 lines with <br>)
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide slide-divider">
+  <div class="div-bg"><img src="active_02.jpg" alt=""></div><!-- DIV_IMAGE -->
+  <div class="div-scrim"></div>
+  <div class="div-content">
+    <div class="div-header">
+      <img src="whoop_logo_white.png" alt="WHOOP"><!-- LOGO_FILE -->
+      <span>DECK_TITLE</span>
+    </div>
+    <div class="div-body">
+      <p class="section-label">01</p><!-- DIV_LABEL -->
+      <h2>SECTION<br>TITLE</h2><!-- DIV_TITLE -->
+    </div>
+    <div class="div-num">01</div><!-- DIV_NUM ghost number -->
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: TWO-COLUMN bullet list
+     ▸ Left: bullets  Right: bullets or callout
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <p class="content-subtitle">SLIDE_SUBTITLE</p>
+    <div class="two-col">
+      <div>
+        <p class="col-head">COL_HEAD_LEFT</p>
+        <ul class="b">
+          <li>Bullet point one</li>
+          <li>Bullet point two</li>
+          <li>Bullet point three</li>
+          <li class="sub">Sub-bullet detail</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-head">COL_HEAD_RIGHT</p>
+        <ul class="b">
+          <li>Bullet point one</li>
+          <li>Bullet point two</li>
+          <li>Bullet point three</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: TWO-COLUMN with callout
+     ▸ Left: bullets  Right: code block + callout
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <p class="content-subtitle">SLIDE_SUBTITLE</p>
+    <div class="two-col">
+      <div>
+        <ul class="b">
+          <li>Bullet point one</li>
+          <li>Bullet point two</li>
+          <li class="sub">Supporting detail</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-head" style="margin-bottom:10px;">CODE_BLOCK_LABEL</p>
+        <div class="code-block"><span class="cm"># comment</span><br>command arg1 arg2<br><br>another line</div>
+        <div style="height:12px;"></div>
+        <div class="callout"><p class="callout-title">CALLOUT_LABEL</p><p>Callout body text goes here — keep to 1–2 lines.</p></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: THREE-COLUMN boxes
+     ▸ Use for step-by-step, option comparisons, or feature sets
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <div class="callout-teal" style="margin-bottom:16px;"><p class="callout-title">HIGHLIGHT_LABEL</p><p>One-line highlight or recommendation shown at the top.</p></div>
+    <div class="three-col">
+      <div class="box-gray"><p class="col-head" style="margin-bottom:8px;">STEP_1_LABEL</p><p style="font-size:13px;color:var(--muted);line-height:1.5;">Description of this step or option — 2–3 sentences max.</p></div>
+      <div class="box-gray"><p class="col-head" style="margin-bottom:8px;">STEP_2_LABEL</p><p style="font-size:13px;color:var(--muted);line-height:1.5;">Description of this step or option — 2–3 sentences max.</p></div>
+      <div class="box-gray"><p class="col-head" style="margin-bottom:8px;">STEP_3_LABEL</p><p style="font-size:13px;color:var(--muted);line-height:1.5;">Description of this step or option — 2–3 sentences max.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: FLOW DIAGRAM
+     ▸ Use for numbered processes or step-by-step instructions
+     ▸ flow-num bg can be var(--blue) or var(--teal) for variety
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <p class="content-subtitle">SLIDE_SUBTITLE</p>
+    <div class="two-col">
+      <div class="flow">
+        <div class="flow-step"><div class="flow-num">1</div><div class="flow-text"><strong>Step title</strong><br>Supporting description — 1–2 lines</div></div>
+        <div class="flow-step"><div class="flow-num">2</div><div class="flow-text"><strong>Step title</strong><br>Supporting description — 1–2 lines</div></div>
+        <div class="flow-step"><div class="flow-num">3</div><div class="flow-text"><strong>Step title</strong><br>Supporting description — 1–2 lines</div></div>
+      </div>
+      <div>
+        <p class="col-head" style="margin-bottom:10px;">RIGHT_COL_LABEL</p>
+        <div class="code-block">code or details here</div>
+        <div style="height:12px;"></div>
+        <div class="callout"><p class="callout-title">NOTE_LABEL</p><p>Supporting note or fallback instruction.</p></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: STATS / METRICS
+     ▸ Use 2 or 3 stat-num blocks for data highlights
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <p class="content-subtitle">SLIDE_SUBTITLE</p>
+    <div class="three-col" style="align-items:center;">
+      <div class="box-gray" style="text-align:center;padding:28px 20px;">
+        <div class="stat-num">00%</div>
+        <div class="stat-label">METRIC_LABEL</div>
+      </div>
+      <div class="box-teal" style="text-align:center;padding:28px 20px;">
+        <div class="stat-num">0.0x</div>
+        <div class="stat-label">METRIC_LABEL</div>
+      </div>
+      <div class="box-gray" style="text-align:center;padding:28px 20px;">
+        <div class="stat-num">000</div>
+        <div class="stat-label">METRIC_LABEL</div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: TABLE
+     ▸ Use table.t for data comparisons or feature matrices
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <p class="content-subtitle">SLIDE_SUBTITLE</p>
+    <table class="t" style="margin-top:8px;">
+      <tr><th>COL_1</th><th>COL_2</th><th>COL_3</th><th>STATUS</th></tr>
+      <tr><td>Row item</td><td>Detail</td><td>Value</td><td><span class="tag-on">On</span></td></tr>
+      <tr><td>Row item</td><td>Detail</td><td>Value</td><td><span class="tag-off">Off</span></td></tr>
+      <tr><td>Row item</td><td>Detail</td><td>Value</td><td><span class="tag-on">On</span></td></tr>
+    </table>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     COMPONENT: STACKED CALLOUTS
+     ▸ Use for tips, gotchas, or key takeaways (3 max per slide)
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">SECTION_LABEL</p>
+    <h2 class="content-title">SLIDE_TITLE</h2>
+    <p class="content-subtitle">SLIDE_SUBTITLE</p>
+    <div style="display:flex;flex-direction:column;gap:14px;flex:1;">
+      <div class="callout-teal"><p class="callout-title">KEY_POINT_1</p><p>Body text — 1–2 sentences.</p></div>
+      <div class="callout">    <p class="callout-title">KEY_POINT_2</p><p>Body text — 1–2 sentences.</p></div>
+      <div class="callout-teal"><p class="callout-title">KEY_POINT_3</p><p>Body text — 1–2 sentences.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SLIDE: CLOSING / NEXT STEPS
+     ▸ bullets: key links or references
+     ▸ flow: numbered next steps (use teal flow-num for closing)
+     ═══════════════════════════════════════════════════════════════════ -->
+<section><div class="slide">
+  <div class="slide-header"><img src="whoop_logo_white.png" alt="WHOOP"><span>DECK_TITLE</span></div>
+  <div class="slide-body">
+    <p class="section-label">Next Steps</p>
+    <h2 class="content-title">CLOSING_TITLE</h2>
+    <p class="content-subtitle">CLOSING_SUBTITLE</p>
+    <div class="two-col">
+      <div>
+        <p class="col-head" style="margin-bottom:12px;">Key Links</p>
+        <ul class="b">
+          <li>Resource / link one</li>
+          <li>Resource / link two</li>
+          <li>Resource / link three</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-head" style="margin-bottom:12px;">Next Steps</p>
+        <div class="flow" style="gap:10px;">
+          <div class="flow-step"><div class="flow-num" style="background:var(--teal);color:#000;">1</div><div class="flow-text">First action item</div></div>
+          <div class="flow-step"><div class="flow-num" style="background:var(--teal);color:#000;">2</div><div class="flow-text">Second action item</div></div>
+          <div class="flow-step"><div class="flow-num" style="background:var(--teal);color:#000;">3</div><div class="flow-text">Third action item</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true, slideNumber: 'c/t',
+  transition: 'fade', transitionSpeed: 'fast', backgroundTransition: 'fade',
+  width: 1280, height: 720, margin: 0, controls: true, progress: true,
+});
+</script>
+</body>
+</html>

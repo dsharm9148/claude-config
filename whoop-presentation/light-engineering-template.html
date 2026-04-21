@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WHOOP Engineering Template</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    /* ─────────────────────────────────────────
+       WHOOP Engineering Presentation Template
+       Canvas: 1280 × 720 px  |  White theme
+       ───────────────────────────────────────── */
+    :root {
+      --navy:  #0F253F;
+      --gray:  #666666;
+      --red:   #FF0000;
+      --line:  #808080;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, .reveal {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #fff;
+    }
+    .reveal .slides section { padding: 0; top: 0 !important; left: 0 !important; }
+    .reveal .slides { text-align: left; }
+
+    /* Slide shell */
+    .slide {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    /* ── COVER SLIDE ── */
+    /* Text block: centered in the left portion (left=134, top=105, w=760) */
+    .cover-text {
+      position: absolute;
+      left: 134px; top: 105px;
+      width: 760px;
+      text-align: center;
+    }
+    .cover-whoop {
+      font-size: 56.9px;    /* 32pt */
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .cover-title {
+      font-size: 42.7px;    /* 24pt */
+      font-weight: 400;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-top: 4px;
+    }
+    .cover-author {
+      font-size: 32px;      /* 18pt */
+      font-weight: 700;
+      color: var(--gray);
+      margin-top: 10px;
+      line-height: 1.2;
+    }
+    .cover-date {
+      font-size: 32px;      /* 18pt */
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1.2;
+    }
+    /* WHOOP puck logo, centered: left=568, top=485, w=144, h=144 */
+    .cover-puck {
+      position: absolute;
+      left: 568px; top: 485px;
+      width: 144px; height: 144px;
+      object-fit: contain;
+    }
+    /* CONFIDENTIAL footer: left=424, top=667, w=432, h=38 */
+    .cover-confidential {
+      position: absolute;
+      left: 424px; top: 671px;
+      width: 432px;
+      text-align: center;
+      font-size: 17.8px;    /* 10pt */
+      font-weight: 400;
+      color: #000;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── CONTENT SLIDES ── */
+    /* Title bar sits above the top separator (top=29, h=56) */
+    .slide-title {
+      position: absolute;
+      left: 64px; top: 29px;
+      width: 820px; height: 56px;
+      display: flex;
+      align-items: center;
+      font-size: 21.3px;    /* 12pt */
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    /* Body content area: below top line (y=99) to bottom line (y=667) */
+    .slide-body {
+      position: absolute;
+      left: 64px; top: 99px;
+      width: 820px;         /* stop well before right panel at 899 */
+      height: 556px;        /* 667 - 99 - some padding */
+      overflow: hidden;
+    }
+
+    /* Bullet list */
+    ul.bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 8px;
+    }
+    ul.bullets li {
+      font-size: 21.3px;    /* 12pt */
+      font-weight: 400;
+      color: #000;
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.4;
+    }
+    ul.bullets li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--navy);
+    }
+    ul.bullets li.sub {
+      font-size: 19.2px;
+      color: var(--gray);
+      padding-left: 40px;
+      margin-top: -4px;
+    }
+    ul.bullets li.sub::before {
+      content: '–';
+      left: 22px;
+      color: #aaa;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding-top: 8px;
+    }
+    .col-label {
+      font-size: 14.2px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gray);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 1 — COVER
+       Replace: cover-whoop (project/team name),
+                cover-title, cover-author, cover-date
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    
+  <!-- Master chrome -->
+  <img src="whoop_puck_black.png"  style="position:absolute;left:920px;top:0;width:720px;height:720px;object-fit:contain;opacity:0.14">
+  <hr style="position:absolute;left:64px;top:84.7px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <hr style="position:absolute;left:64px;top:667.3px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <img src="whoop_logo_black.png" style="position:absolute;left:64px;top:682px;width:126px;height:22px;object-fit:contain">
+  
+    <div class="cover-text">
+      <div class="cover-whoop">WHOOP</div>
+      <div class="cover-title">Presentation Title</div>
+      <div class="cover-author">Author Name</div>
+      <div class="cover-date">Month YYYY</div>
+    </div>
+    <img class="cover-puck" src="whoop_puck_black.png" alt="WHOOP">
+    <div class="cover-confidential">CONFIDENTIAL</div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 2 — CONTENT: BULLETS
+       Replace: slide-title text, li items
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    
+  <!-- Master chrome -->
+  <img src="whoop_puck_black.png"  style="position:absolute;left:920px;top:0;width:720px;height:720px;object-fit:contain;opacity:0.14">
+  <hr style="position:absolute;left:64px;top:84.7px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <hr style="position:absolute;left:64px;top:667.3px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <img src="whoop_logo_black.png" style="position:absolute;left:64px;top:682px;width:126px;height:22px;object-fit:contain">
+  <span style="position:absolute;right:28px;top:673px;font-size:12px;color:#666;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">2</span>
+    <div class="slide-title">Slide Title</div>
+    <div class="slide-body">
+      <ul class="bullets">
+        <li>First bullet point goes here</li>
+        <li>Second bullet point goes here</li>
+        <li class="sub">Supporting sub-point</li>
+        <li>Third bullet point goes here</li>
+        <li>Fourth bullet point goes here</li>
+      </ul>
+    </div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 3 — CONTENT: TWO COLUMNS
+       Replace: slide-title, column labels and bullets
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    
+  <!-- Master chrome -->
+  <img src="whoop_puck_black.png"  style="position:absolute;left:920px;top:0;width:720px;height:720px;object-fit:contain;opacity:0.14">
+  <hr style="position:absolute;left:64px;top:84.7px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <hr style="position:absolute;left:64px;top:667.3px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <img src="whoop_logo_black.png" style="position:absolute;left:64px;top:682px;width:126px;height:22px;object-fit:contain">
+  <span style="position:absolute;right:28px;top:673px;font-size:12px;color:#666;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">3</span>
+    <div class="slide-title">Slide Title</div>
+    <div class="slide-body">
+      <div class="two-col">
+        <div>
+          <div class="col-label">Column One</div>
+          <ul class="bullets">
+            <li>Point one</li>
+            <li>Point two</li>
+            <li>Point three</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">Column Two</div>
+          <ul class="bullets">
+            <li>Point one</li>
+            <li>Point two</li>
+            <li>Point three</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 4 — CONTENT: FULL-WIDTH TEXT + IMAGE
+       Swap image placeholder with your own <img>
+       ═══════════════════════════════════════════ -->
+  <section>
+  <div class="slide">
+    
+  <!-- Master chrome -->
+  <img src="whoop_puck_black.png"  style="position:absolute;left:920px;top:0;width:720px;height:720px;object-fit:contain;opacity:0.14">
+  <hr style="position:absolute;left:64px;top:84.7px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <hr style="position:absolute;left:64px;top:667.3px;width:1152px;border:none;border-top:1px solid #808080;margin:0">
+  <img src="whoop_logo_black.png" style="position:absolute;left:64px;top:682px;width:126px;height:22px;object-fit:contain">
+  <span style="position:absolute;right:28px;top:673px;font-size:12px;color:#666;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif">4</span>
+    <div class="slide-title">Slide Title</div>
+    <div class="slide-body" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <ul class="bullets" style="padding-top:8px">
+        <li>First bullet point</li>
+        <li>Second bullet point</li>
+        <li>Third bullet point</li>
+      </ul>
+      <!-- Replace with <img> or diagram -->
+      <div style="height:340px;background:#f5f5f5;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:13px;color:#aaa;letter-spacing:0.08em;text-transform:uppercase">Image / Diagram</div>
+    </div>
+  </div>
+  </section>
+
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'none',
+  width: 1280,
+  height: 720,
+  margin: 0,
+  controls: true,
+  progress: true,
+  center: false,
+});
+</script>
+</body>
+</html>
